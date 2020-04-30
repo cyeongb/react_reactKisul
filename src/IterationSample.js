@@ -25,7 +25,17 @@ const IterationSample = () => {
     console.log("text>>", nextNames.text);
   };
 
-  const nameList = names.map((name) => <li key={name.id}>{name.text}</li>);
+  const onRemove = (id) => {
+    //더블 클릭하면 없어짐
+    const nextNames = names.filter((name) => name.id !== id);
+    setNames(nextNames);
+  };
+
+  const nameList = names.map((name) => (
+    <li key={name.id} onDoubleClick={() => onRemove(name.id)}>
+      {name.text}
+    </li>
+  ));
   return (
     <>
       <input value={inputText} onChange={onChange} />
