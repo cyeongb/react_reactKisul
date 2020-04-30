@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const IterationSample = () => {
   const [names, setNames] = useState([
@@ -7,7 +7,32 @@ const IterationSample = () => {
     { id: 3, text: "MULAN" },
     { id: 4, text: "JASMINE" },
   ]);
-  const[input]
+  const [inputText, setInputText] = useState("");
+  const [nextId, setNextId] = useState(5); //새로운 항목 추가
+
+  const onChange = (e) => setInputText(e.target.value);
+
+  const onClick = () => {
+    console.log("click");
+    const nextNames = names.concat({
+      id: nextId,
+      text: inputText,
+    });
+    setNextId(nextId + 1);
+    setNames(nextNames);
+    setInputText("");
+    console.log("id>>", nextNames.id);
+    console.log("text>>", nextNames.text);
+  };
+
+  const nameList = names.map((name) => <li key={name.id}>{name.text}</li>);
+  return (
+    <>
+      <input value={inputText} onChange={onChange} />
+      <button onClick={onClick}>ADD</button>
+      <ul>{nameList}</ul>
+    </>
+  );
 };
 
 export default IterationSample;
