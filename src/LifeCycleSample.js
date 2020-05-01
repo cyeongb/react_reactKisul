@@ -41,6 +41,7 @@ export default class LifeCycleSample extends Component {
   }
 
   handleClick = () => {
+    console.log("handleClick() 메서드 실행");
     console.log("click 할때마다 1 증가>>", this.state.number + 1);
     this.setState({
       number: this.state.number + 1,
@@ -69,17 +70,20 @@ export default class LifeCycleSample extends Component {
 
     if (snapshot) {
       //snapshot 에서 return 한 값이 true 이면
-      console.log("업데이트 되기 직전의 색상 :>>", snapshot);
+      console.log("업데이트 되기 직전의 색상 스냅샷값 :>>", snapshot);
     }
   }
 
   render() {
     console.log("render()함수 호출");
+    console.log("현재상태의 number>>", this.state.number);
+    console.log("현재 상태의 컬러>>", this.state.color);
     const style = {
       color: this.props.color,
     };
     return (
       <div>
+        {this.props.missing.value /* missing이라는건 존재하지 않음.*/}
         <h1 style={style} ref={(ref) => (this.myref = ref)}>
           {this.state.number}
         </h1>
