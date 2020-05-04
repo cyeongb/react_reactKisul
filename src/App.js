@@ -10,7 +10,11 @@ const App = () => {
         onClick={() => {
           setVisible(!visible);
         }}
-      ></button>
+      >
+        {visible ? "숨기기" : "보이기"}
+      </button>
+      <hr />
+      {visible && <Info />}
     </div>
   );
 };

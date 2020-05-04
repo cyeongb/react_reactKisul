@@ -9,13 +9,13 @@ const Info = () => {
   cleanup 함수를 반환해야 한다.*/
   useEffect(() => {
     console.log("effect 발생");
-    console.log(name);
+    console.log({ name, nickname });
 
     return () => {
       console.log("cleanup 함수 반환");
-      console.log(name);
+      console.log({ name, nickname });
     };
-  });
+  }, [{ name, nickname }]);
 
   const onChangeName = (e) => {
     setName(e.target.value);
