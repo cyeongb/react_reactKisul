@@ -1,18 +1,29 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "INCREMENT": //증가
+      return { value: state.value + 1 };
+    case "DECREMENT": //감소
+      return { value: state.value - 1 };
+    default:
+      return state; //해당 없으면 기존상태 반환
+  }
+}
 
 const Counter = () => {
-  const [value, setValue] = useState(0);
-  /* useState 함수의 파라미터에는 상태의 기본값(0)을 넣어준다.
-  고로 카운터의 기본값을 0으로 설정하겠다는 뜻이다.
-  [상태값,상태를 설정하는 함수] 로 이루어져있다.
-  이 함수에 파라미터를 넣어서 호출하면 전달받은 파라미터로 값이 바뀌고 리렌더링 된다.*/
+  // 이 함수는 state 값과 dispatch함수를 받아온다.
+  // state는 현재 가리키고있는 상태값 이고
+  // dispatch 는 action 을 발생시키는 함수이다.
+  // 그래서 함수안에 파라미터로 dispatch의 값을 넣어주면 안에있는 reducer 함수가 호출되는 구조이다.
+  const [state, dispatch] = useReducer(reducer, { value: 0 });
   return (
     <div>
       <p>
-        Currently counter value is <b>{value}</b>;
+        Currently counter is <b>{state.value}</b>.
       </p>
-      <button onClick={() => setValue(value + 1)}>+1</button>
-      <button onClick={() => setValue(value - 1)}>-1</button>
+      <button onClick={() => dispatch({ type: "INCREMENT" })}>+1</button>
+      <button onClick={() => dispatch({ type: "DECREMENT" })}>-1</button>
     </div>
   );
 };
